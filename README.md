@@ -149,16 +149,6 @@ orch.write_outputs(outputs)
 
 ---
 
-## Extending the System
-To add a new page/capability:
-1) Implement a worker agent that subscribes to an existing message (e.g., `PRODUCT_PARSED`) and emits a new `*_PAGE_READY` message with a typed page object.
-2) Implement a corresponding render agent and template that subscribes to `*_PAGE_READY` and emits `*_JSON`.
-3) Wire subscriptions in `Orchestrator` and update the collector if you want the output persisted alongside others.
-
-Because components communicate only via messages, you typically do not need to modify existing agents.
-
----
-
 ## Testing
 - Run `python run_tests.py` for the end-to-end test.
 - The suite verifies, among other things, normalization behavior (e.g., converting an en-dash to a hyphen in the phrase "Apply 2–3 drops" → "Apply 2-3 drops").
@@ -166,16 +156,6 @@ Because components communicate only via messages, you typically do not need to m
 
 ---
 
-## Troubleshooting
-- PowerShell users: use separate commands instead of `&&` chaining.
-- If outputs are empty, ensure you call `orch.run(raw)` before `orch.write_outputs(outputs)`.
-- Non-ASCII punctuation is normalized in places (e.g., en-dash → hyphen) to keep outputs consistent.
-
----
-
 ## Contributing
 - Open a pull request with a clear description and tests when appropriate.
 - Keep agents single-purpose and avoid introducing hidden global state.
-
-## License
-- No license file is included. If you intend to open-source, add a LICENSE file (e.g., MIT, Apache-2.0) and update this section.
